@@ -1,14 +1,15 @@
 import { hit, sanityCheck } from './shared.js';
 
+// Baseline. Modest steady load to characterize cross-node latency without saturation.
 export const options = {
   scenarios: {
     low: {
       executor: 'constant-arrival-rate',
-      rate: 20,
+      rate: 200,
       timeUnit: '1s',
       duration: '5m',
-      preAllocatedVUs: 30,
-      maxVUs: 100,
+      preAllocatedVUs: 100,
+      maxVUs: 400,
     },
   },
   summaryTrendStats: ['min', 'avg', 'med', 'p(95)', 'p(99)', 'max'],

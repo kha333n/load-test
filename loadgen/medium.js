@@ -1,16 +1,17 @@
 import { hit, sanityCheck } from './shared.js';
 
+// Designed to push HPA past its CPU threshold and exercise multi-pod cross-node spread.
 export const options = {
   scenarios: {
     medium: {
       executor: 'ramping-arrival-rate',
       startRate: 0,
       timeUnit: '1s',
-      preAllocatedVUs: 100,
-      maxVUs: 500,
+      preAllocatedVUs: 400,
+      maxVUs: 2500,
       stages: [
-        { duration: '2m', target: 200 },
-        { duration: '5m', target: 200 },
+        { duration: '2m', target: 1500 },
+        { duration: '6m', target: 1500 },
         { duration: '1m', target: 0 },
       ],
     },

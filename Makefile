@@ -5,7 +5,7 @@ IMAGE         ?= ghcr.io/kha333n/load-test-app
 TAG           ?= latest
 NS            ?= load-test
 PRIMARY_IP    ?= 159.195.58.193
-# Public URL (via Caddy). Override with TARGET_URL=http://$(PRIMARY_IP):30080 to bypass Caddy.
+# Public URL (via Caddy). Override with TARGET_URL=http://$(PRIMARY_IP):30081 to bypass Caddy.
 TARGET_URL    ?= https://loadtest.kha333n.com
 GRAFANA_URL   ?= http://localhost:3000
 K6            ?= docker run --rm -i --network host -e TARGET=$(TARGET_URL) -v $$PWD/loadgen:/scripts grafana/k6:latest run
@@ -38,8 +38,8 @@ k8s-apply: dash-cm ## Apply manifests in dependency order
 	kubectl apply -f k8s/monitoring/grafana.yaml
 	kubectl apply -f k8s/app.yaml
 	kubectl apply -f k8s/hpa.yaml
-	@echo "applied. wait for pods:"
-	kubectl -n $(NS) get pods -w
+	@echo "applied. status:"
+	kubectl -n $(NS) get pods -o wide
 
 k8s-destroy: ## Tear down everything in the namespace
 	kubectl delete ns $(NS) --ignore-not-found

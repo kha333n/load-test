@@ -1,13 +1,14 @@
 # Caddyfile snippet for loadtest.kha333n.com
 # Drop into your Caddy sites-enabled / import into your main Caddyfile.
-# Assumes Caddy runs on the same host as the k3s primary node (159.195.58.193),
-# reaching the NodePort directly via loopback.
+# Upstream uses the primary node's public IP (159.195.58.193) so this works
+# whether Caddy runs on the host or in a Docker container — loopback would
+# only work for a host-installed Caddy, not a containerized one.
 
 loadtest.kha333n.com {
 	encode zstd gzip
 
 	# k6 saturation tests can produce bursts; bump idle/read timeouts.
-	reverse_proxy 127.0.0.1:30080 {
+	reverse_proxy 159.195.58.193:30081 {
 		transport http {
 			dial_timeout      5s
 			response_header_timeout 30s
@@ -31,5 +32,5 @@ loadtest.kha333n.com {
 # Optional: expose Grafana publicly. Comment out if you'd rather port-forward.
 grafana.kha333n.com {
  	encode zstd gzip
- 	reverse_proxy 127.0.0.1:30030
+ 	reverse_proxy 159.195.58.193:30030
 }
