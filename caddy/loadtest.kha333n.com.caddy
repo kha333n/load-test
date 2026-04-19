@@ -29,7 +29,7 @@ loadtest.kha333n.com {
 }
 
 # Optional: expose Grafana publicly. Comment out if you'd rather port-forward.
-# grafana.kha333n.com {
-# 	encode zstd gzip
-# 	reverse_proxy 127.0.0.1:30030
-# }
+grafana.kha333n.com {
+ 	encode zstd gzip
+ 	reverse_proxy 127.0.0.1:30030
+}
