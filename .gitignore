@@ -1,0 +1,10 @@
+app/bin/
+app/load-test
+*.log
+.env
+.env.local
+k6-summary-*.json
+docs/results/*.png
+!docs/results/.gitkeep
+.idea/
+.vscode/
